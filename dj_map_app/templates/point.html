@@ -1,0 +1,12 @@
+{% extends "base.html" %} #this child template extends base
+
+{% block content %}
+
+<p>Single Point Content</p>
+
+<p>ID: {{ point.id }}</p>
+<p>Text: {{ point.text }}</p>
+<p>Created: {{ point.date_added | date:'M d, Y H:i'}}</p>{# jinja filter #}
+
+
+{% endblock content %}
