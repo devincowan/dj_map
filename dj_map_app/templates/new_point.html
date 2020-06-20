@@ -1,0 +1,14 @@
+{% extends "base.html" %} #this child template extends base
+
+{% block content %}
+
+<p>Add new point</p>
+
+<form action="{% url 'dj_map_app:new_point' %}" method='post'>
+  {% csrf_token %}
+  {{ form.as_p }} {# Render as paragraph #}
+  <button name="submit">Add Point</button>
+</form>
+
+
+{% endblock content %}

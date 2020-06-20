@@ -10,4 +10,5 @@ urlpatterns = [
     path('large', views.large, name='large'),
     path('points', views.points, name='points'),
     path('points/<int:point_id>', views.point, name='point'),
+    path('new', views.new_point, name='new_point'),
 ]
