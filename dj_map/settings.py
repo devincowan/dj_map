@@ -35,6 +35,9 @@ INSTALLED_APPS = [
     'dj_map_app',
     'users_app',
 
+    # 3rd party apps
+    'bootstrap4',
+
     # default apps
     'django.contrib.admin',
     'django.contrib.auth',

@@ -1,19 +1,21 @@
 {% extends "base.html" %} #this child template extends base
 
-{% block content %}
+{% block page_header %}
+<h1>Points</h1>
+{% endblock page_header %}
 
-<p>Points</p>
+{% block content %}
 
 <ul>
   {% for point in points %}
-  <li>
+  <li><h3>
     <a href="{% url 'dj_map_app:point' point.id %}">{{ point}}</a>
-  </li>
+  </h3></li>
   {% empty %}
-  <li>NONE</li>
+  <li><h3>No points added yet...</h3></li>
   {% endfor %}
 </ul>
 
-<a href="{% url 'dj_map_app:new_point' %}">Add a new POINT</a>
+<h3><a href="{% url 'dj_map_app:new_point' %}">Add a new Point</a></h3>
 
 {% endblock content %}

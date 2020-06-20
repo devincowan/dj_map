@@ -1,5 +1,18 @@
 {% extends "base.html" %} #this child template extends base
 
+{% block page_header %}
+<div class="jumbotron">
+  <h1 class="display-3">Store your maps.</h1>
+
+  <p class="lead">Upload maps and sort through them.</p>
+
+  <a class="btn btn-lg btn-primary" href="{% url 'users_app:register' %}" role="button">
+    Register &raquo;
+    {# html element ">>" #}
+  </a>
+</div>
+{% endblock page_header %}
+
 {% block content %}
 
 <p>Map APP content is filled here</p>
