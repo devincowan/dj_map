@@ -1,6 +1,15 @@
 <p>
   <a href="{% url 'dj_map_app:index'%}">MAPP APP INDEX</a>
   <a href="{% url 'dj_map_app:points'%}">Points</a>
+
+  {# User is always avail in django #}
+  {% if user.is_authenticated %}
+    Hello, {{ user.username }}.
+    <a href="{% url 'users_app:logout' %}">Log out</a>
+  {% else %}
+    <a href="{% url 'users_app:login' %}">Log in</a>
+    <a href="{% url 'users_app:register' %}">Register</a>
+  {% endif %}
 </p>
 
 {% block content %}

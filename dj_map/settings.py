@@ -33,8 +33,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # my apps
     'dj_map_app',
+    'users_app',
 
-    #default apps
+    # default apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
