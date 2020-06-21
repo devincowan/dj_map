@@ -3,8 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from .models import Point
 from .forms import PointForm
-# from pprint import pprint
-# import pdb
+
 
 # Create your views here.
 
@@ -26,17 +25,8 @@ def points(request):
     # query the points model, filter by user
     points = Point.objects.filter(owner=request.user).order_by('date_added')
 
-    # pprint(dir(points))
-    # pdb.set_trace()
-    dump = repr(points)
-
     # context is a dictionary of key/vals
-    try:
-        dump
-    except NameError:
-        context = {'points': points}
-    else:
-        context = {'points': points, 'dump': dump}
+    context = {'points': points}
     return render(request, 'points.html', context)
 
 
