@@ -37,7 +37,9 @@ INSTALLED_APPS = [
 
     # 3rd party apps
     'bootstrap4',
+    'leaflet',
     'django.contrib.gis',
+
 
     # default apps
     'django.contrib.admin',
@@ -132,3 +134,7 @@ STATIC_URL = '/static/'
 LOGIN_URL = 'users_app:login'
 # GDAL_LIBRARY_PATH = ''
 SPATIALITE_LIBRARY_PATH = '/usr/local/lib/mod_spatialite.dylib'
+
+LEAFLET_CONFIG = {
+    'SPATIAL_EXTENT': (5.0, 44.0, 7.5, 46)
+}

@@ -1,10 +1,14 @@
 {% extends "base.html" %} #this child template extends base
 
+{% load leaflet_tags %}
+{# TODO: Why do we have to load this again here and Base? #}
+
 {% block page_header %}
 <h1>Points</h1>
 {% endblock page_header %}
 
 {% block content %}
+{% leaflet_map "mapname" %}
 
 <ul>
   {% for point in points %}

@@ -1,5 +1,6 @@
 {% load bootstrap4 %}
 {# pip install django-bootstrap4 #}
+{% load leaflet_tags %}
 
 <!doctype html>
 <html lang="en">
@@ -10,6 +11,8 @@
 
   {% bootstrap_css %}
   {% bootstrap_javascript jquery='full' %}
+  {% leaflet_js %}
+  {% leaflet_css %}
 </head>
 
 <body>
