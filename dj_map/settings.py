@@ -37,6 +37,7 @@ INSTALLED_APPS = [
 
     # 3rd party apps
     'bootstrap4',
+    'django.contrib.gis',
 
     # default apps
     'django.contrib.admin',
@@ -83,7 +84,7 @@ WSGI_APPLICATION = 'dj_map.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.spatialite',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
@@ -129,3 +130,5 @@ STATIC_URL = '/static/'
 
 # My settings
 LOGIN_URL = 'users_app:login'
+# GDAL_LIBRARY_PATH = ''
+SPATIALITE_LIBRARY_PATH = '/usr/local/lib/mod_spatialite.dylib'
