@@ -1,10 +1,9 @@
 # from django.contrib import admin
 from django.contrib.gis import admin
-# from leaflet.admin import LeafletGeoAdmin
+from leaflet.admin import LeafletGeoAdmin
 
 # Register your models here.
 
 from .models import Point
 
-# admin.site.register(Point, admin.OSMGeoAdmin, LeafletGeoAdmin)
-admin.site.register(Point, admin.OSMGeoAdmin)
+admin.site.register(Point, LeafletGeoAdmin)
