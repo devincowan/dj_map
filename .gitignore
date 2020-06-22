@@ -1,3 +1,7 @@
+# NPM #
+node_modules
+package.json
+
 # Django #
 *.log
 *.pot

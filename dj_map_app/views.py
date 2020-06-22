@@ -1,8 +1,10 @@
+import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from .models import Point
 from .forms import PointForm
+from django.core.serializers import serialize
 
 
 # Create your views here.
@@ -28,6 +30,13 @@ def points(request):
     # context is a dictionary of key/vals
     context = {'points': points}
     return render(request, 'points.html', context)
+
+
+@login_required
+def points_data(request):
+    """API for points"""
+    points_as_geojson = serialize('geojson', Point.objects.all())
+    return JsonResponse(json.loads(points_as_geojson))
 
 
 @login_required
