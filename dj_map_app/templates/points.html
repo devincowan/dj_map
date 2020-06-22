@@ -1,14 +1,35 @@
-{% extends "base.html" %} #this child template extends base
+{# {% extends "base.html" %} #this child template extends base #}
+{# TODO: leaflet only loads if the template doesn't extend base... #}
 
 {% load leaflet_tags %}
-{# TODO: Why do we have to load this again here and Base? #}
+
+{% leaflet_css %}
+{% leaflet_js %}
+
+{% load static %}
+<script src="{% static 'leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
+<script src="{% static 'spin.js/spin.min.js' %}"></script>
+<script src="{% static 'leaflet-spin/leaflet.spin.js' %}"></script>
 
 {% block page_header %}
 <h1>Points</h1>
 {% endblock page_header %}
 
 {% block content %}
-{% leaflet_map "mapname" %}
+
+<script type="text/javascript">
+  function map_init_basic (map, options) {
+    var geojsonPointLayer = new L.GeoJSON.AJAX("{% url 'dj_map_app:points_data' %}", {
+      onEachFeature:function(feature, layer) {
+        layer.bindPopup(feature.properties.text.toString());
+      }
+    });
+    geojsonPointLayer.addTo(map);
+    console.log(geojsonPointLayer);
+  }
+</script>
+
+{% leaflet_map "dj-map" callback="window.map_init_basic" %}
 
 <ul>
   {% for point in points %}
