@@ -86,8 +86,15 @@ WSGI_APPLICATION = 'dj_map.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.spatialite',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # DOCKER
+        # git clone git://github.com/kartoza/docker-postgis
+        # docker-compose up -d
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'gis',
+        'USER': 'docker',
+        'PASSWORD': 'docker',
+        'HOST': 'localhost',
+        'PORT': '25432'
     }
 }
 

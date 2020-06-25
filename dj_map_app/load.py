@@ -12,5 +12,6 @@ def point_load():
             text, lon, lat = line.split(',')
             point = "POINT(%s %s)" % (lon.strip(), lat.strip())
             Point.objects.create(text=text, geom=geos.fromstr(point), owner_id='1')
+            # python manage.py shell
             # >>> from dj_map_app import load
             # >>> load.point_load()
