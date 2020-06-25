@@ -12,13 +12,13 @@ from django.core.serializers import serialize
 
 def index(request):
     """Index page for maps app"""
-    return render(request, 'index.html')
+    return render(request, 'dj_map_app/index.html')
 
 
 @login_required
 def large(request):
     """Page for maps"""
-    return render(request, 'large.html')
+    return render(request, 'dj_map_app/large.html')
 
 
 @login_required
@@ -29,7 +29,7 @@ def points(request):
 
     # context is a dictionary of key/vals
     context = {'points': points}
-    return render(request, 'points.html', context)
+    return render(request, 'dj_map_app/points.html', context)
 
 
 @login_required
@@ -51,7 +51,7 @@ def point(request, point_id):
 
     # context is a dictionary of key/vals
     context = {'point': point}
-    return render(request, 'point.html', context)
+    return render(request, 'dj_map_app/point.html', context)
 
 
 @login_required
@@ -70,4 +70,4 @@ def new_point(request):
 
     # Display blank/invalid form
     context = {'form': form}
-    return render(request, 'new_point.html', context)
+    return render(request, 'dj_map_app/new_point.html', context)
