@@ -1,7 +1,7 @@
 import json
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, JsonResponse
+from django.http import JsonResponse
 from .models import Point
 from .forms import PointForm
 from django.core.serializers import serialize
@@ -43,11 +43,7 @@ def points_data(request):
 def point(request, point_id):
     """Page for single point"""
     # query the points model for matching point
-    point = Point.objects.get(id=point_id)
-
-    # make sure the point belongs to current user
-    if point.owner != request.user:
-        raise Http404
+    point = get_object_or_404(Point, id=point_id, owner=request.user)
 
     # context is a dictionary of key/vals
     context = {'point': point}
