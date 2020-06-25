@@ -2,7 +2,7 @@
 
 My first Django project--working with geospatial data
 
-##TODO:
+## TODO:
 store and share points (w url for each)
 change layers
 host on server w apache
