@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^points.data/', views.points_data, name='points_data'),
     path('points/<int:point_id>', views.point, name='point'),
     path('new', views.new_point, name='new_point'),
+    path('list', views.PointList.as_view())
 ]

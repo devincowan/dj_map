@@ -14,6 +14,7 @@ class Point(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     geom = models.PointField('longitude/latitude', blank=True, null=True)
     objects = GeoManager()
+    srid = models.FloatField(blank=True, null=True, default=4326)
 
 
 def __str__(self):

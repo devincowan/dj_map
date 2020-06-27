@@ -1,0 +1,19 @@
+{% extends "dj_map_app/base.html" %} #this child template extends base
+
+{% block page_header %}
+<h1>Nearby Points</h1>
+{% endblock page_header %}
+
+{% block content %}
+
+{% if points %}
+<ul>
+  {% for point in points %}
+  <li>
+    {{ point.text }}: {{point.distance}}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock content %}

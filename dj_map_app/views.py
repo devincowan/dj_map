@@ -6,8 +6,9 @@ from .models import Point
 from .forms import PointForm
 from django.core.serializers import serialize
 
-
-# Create your views here.
+from django.views import generic
+from django.contrib.gis.geos import Point as geosPoint
+from django.contrib.gis.db.models.functions import Distance
 
 
 def index(request):
@@ -67,3 +68,21 @@ def new_point(request):
     # Display blank/invalid form
     context = {'form': form}
     return render(request, 'dj_map_app/new_point.html', context)
+
+# TODO: get user location form browser instead of hard-coding
+# cez
+longitude = -108.585930
+latitude = 37.348885
+
+# tride
+# longitude = -107.812286
+# latitude = 37.937492
+
+user_location = geosPoint(longitude, latitude, srid=4326)
+
+
+class PointList(generic.ListView):
+    model = Point
+    context_object_name = 'points'
+    queryset = Point.objects.annotate(distance=Distance('geom', user_location)).order_by('distance')[0:6]
+    template_name = 'dj_map_app/list.html'

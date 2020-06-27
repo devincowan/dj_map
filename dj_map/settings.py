@@ -155,5 +155,5 @@ LOGIN_URL = 'users_app:login'
 SPATIALITE_LIBRARY_PATH = '/usr/local/lib/mod_spatialite.dylib'
 
 LEAFLET_CONFIG = {
-    'SPATIAL_EXTENT': (5.0, 44.0, 7.5, 46)
+    # 'SPATIAL_EXTENT': (5.0, 44.0, 7.5, 46)
 }
