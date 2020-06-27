@@ -7,6 +7,7 @@
 <p>ID: {{ point.id }}</p>
 <p>Text: {{ point.text }}</p>
 <p>Created: {{ point.date_added | date:'M d, Y H:i'}}</p>{# jinja filter #}
+<p>Geom: {{ point.geom }}</p>
 
 
 {% endblock content %}
