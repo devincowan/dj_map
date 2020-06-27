@@ -10,6 +10,17 @@ from django.views import generic
 from django.contrib.gis.geos import Point as geosPoint
 from django.contrib.gis.db.models.functions import Distance
 
+# TODO: get user location form browser instead of hard-coding
+# cez
+longitude = -108.585930
+latitude = 37.348885
+
+# tride
+# longitude = -107.812286
+# latitude = 37.937492
+
+user_location = geosPoint(longitude, latitude, srid=4326)
+
 
 def index(request):
     """Index page for maps app"""
@@ -41,6 +52,14 @@ def points_data(request):
 
 
 @login_required
+def nearby_points_data(request):
+    """API for points"""
+    points_as_geojson = serialize('geojson',
+    Point.objects.annotate(distance=Distance('geom', user_location)).order_by('distance')[0:20])
+    return JsonResponse(json.loads(points_as_geojson))
+
+
+@login_required
 def point(request, point_id):
     """Page for single point"""
     # query the points model for matching point
@@ -68,17 +87,6 @@ def new_point(request):
     # Display blank/invalid form
     context = {'form': form}
     return render(request, 'dj_map_app/new_point.html', context)
-
-# TODO: get user location form browser instead of hard-coding
-# cez
-longitude = -108.585930
-latitude = 37.348885
-
-# tride
-# longitude = -107.812286
-# latitude = 37.937492
-
-user_location = geosPoint(longitude, latitude, srid=4326)
 
 
 class PointList(generic.ListView):

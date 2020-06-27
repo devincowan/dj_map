@@ -11,6 +11,7 @@ urlpatterns = [
     path('large', views.large, name='large'),
     path('points', views.points, name='points'),
     url(r'^points.data/', views.points_data, name='points_data'),
+    url(r'^points.nearby/', views.nearby_points_data, name='nearby_points_data'),
     path('points/<int:point_id>', views.point, name='point'),
     path('new', views.new_point, name='new_point'),
     path('list', views.PointList.as_view())

@@ -1,7 +1,40 @@
-{% extends "dj_map_app/base.html" %} #this child template extends base
+{# {% extends "dj_map_app/base.html" %} #this child template extends base #}
+{% load leaflet_tags %}
+{% leaflet_css %}
+{% leaflet_js %}
+
+{% load static %}
+<script src="{% static 'leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
+<script src="{% static 'spin.js/spin.min.js' %}"></script>
+<script src="{% static 'leaflet-spin/leaflet.spin.js' %}"></script>
+
+{% block page_header %}
+<h1>Large map</h1>
+{% endblock page_header %}
 
 {% block content %}
 
-<p>LARGE MAP CONTENT</p>
+<div id="dj_map"></div>
+<style>
+#dj_map {
+  height: 100vh;
+}
+</style>
+<script>
+  var map = L.map("dj_map").setView([37.7035675, -107.9], 10);
+
+  var url = 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+  attr ='Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+  service = new L.TileLayer(url, {maxZoom: 17, attribution: attr});
+  map.addLayer(service);
+
+var geojsonPointLayer = new L.GeoJSON.AJAX("{% url 'dj_map_app:nearby_points_data' %}", {
+  onEachFeature:function(feature, layer) {
+    layer.bindPopup(feature.properties.text.toString());
+  }
+});
+geojsonPointLayer.addTo(map);
+
+</script>
 
 {% endblock content %}
