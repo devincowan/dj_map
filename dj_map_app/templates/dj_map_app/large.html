@@ -28,12 +28,16 @@
   service = new L.TileLayer(url, {maxZoom: 17, attribution: attr});
   map.addLayer(service);
 
-var geojsonPointLayer = new L.GeoJSON.AJAX("{% url 'dj_map_app:nearby_points_data' %}", {
-  onEachFeature:function(feature, layer) {
-    layer.bindPopup(feature.properties.text.toString());
-  }
-});
-geojsonPointLayer.addTo(map);
+  var geojsonPointLayer = new L.GeoJSON.AJAX("{% url 'dj_map_app:nearby_points_data' %}", {
+    style:function(feature){
+      // add styles
+    },
+
+    onEachFeature:function(feature, layer) {
+      layer.bindPopup(feature.properties.text.toString());
+    }
+  });
+  geojsonPointLayer.addTo(map);
 
 </script>
 
