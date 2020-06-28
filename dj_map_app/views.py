@@ -54,8 +54,9 @@ def points_data(request):
 @login_required
 def nearby_points_data(request):
     """API for points"""
-    points_as_geojson = serialize('geojson',
-    Point.objects.annotate(distance=Distance('geom', user_location)).order_by('distance')[0:20])
+    distance = Distance('geom', user_location)
+    points_as_geojson = Point.objects.annotate(distance=distance).order_by('distance')[0:15]
+    points_as_geojson = serialize('geojson', points_as_geojson)
     return JsonResponse(json.loads(points_as_geojson))
 
 
@@ -92,5 +93,6 @@ def new_point(request):
 class PointList(generic.ListView):
     model = Point
     context_object_name = 'points'
-    queryset = Point.objects.annotate(distance=Distance('geom', user_location)).order_by('distance')[0:6]
+    points = Point.objects.annotate(distance=Distance('geom', user_location))
+    queryset = points.order_by('distance')[0:6]
     template_name = 'dj_map_app/list.html'
