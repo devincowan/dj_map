@@ -5,6 +5,8 @@
 
 {% load static %}
 <script src="{% static 'leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
+<script src="{% static 'leaflet-routing-machine/dist/leaflet-routing-machine.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'leaflet-routing-machine/dist/leaflet-routing-machine.css' %}"></script>
 <script src="{% static 'spin.js/spin.min.js' %}"></script>
 <script src="{% static 'leaflet-spin/leaflet.spin.js' %}"></script>
 
@@ -62,6 +64,14 @@
   };
 
   L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+  L.Routing.control({
+  waypoints: [
+    // TODO: select routing points from UI
+    L.latLng(37.937492, -107.812286),
+    L.latLng(37.348885, -108.585930)
+  ]
+}).addTo(map);
 
 </script>
 
