@@ -1,14 +1,19 @@
-{# {% extends "dj_map_app/base.html" %} #this child template extends base #}
-{% load leaflet_tags %}
-{% leaflet_css %}
-{% leaflet_js %}
+{% extends "dj_map_app/base.html" %}
 
 {% load static %}
-<script src="{% static 'leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
-<script src="{% static 'leaflet-routing-machine/dist/leaflet-routing-machine.min.js' %}"></script>
-<link rel="stylesheet" type="text/css" href="{% static 'leaflet-routing-machine/dist/leaflet-routing-machine.css' %}"></script>
-<script src="{% static 'spin.js/spin.min.js' %}"></script>
-<script src="{% static 'leaflet-spin/leaflet.spin.js' %}"></script>
+
+{% block extra_assets %}
+{% load leaflet_tags %}
+  {% leaflet_js %}
+  {% leaflet_css %}
+
+  <script src="{% static 'leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>
+  <script src="{% static 'leaflet-routing-machine/dist/leaflet-routing-machine.min.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'leaflet-routing-machine/dist/leaflet-routing-machine.css' %}"></script>
+  <script src="{% static 'spin.js/spin.min.js' %}"></script>
+  <script src="{% static 'leaflet-spin/leaflet.spin.js' %}"></script>
+
+{% endblock %}
 
 {% block page_header %}
 <h1>Large map</h1>

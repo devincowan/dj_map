@@ -1,7 +1,3 @@
-{% load bootstrap4 %}
-{# pip install django-bootstrap4 #}
-{% load leaflet_tags %}
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,8 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>DJ Maps</title>
 
+  {% load bootstrap4 %}
+  {# pip install django-bootstrap4 #}
+
   {% bootstrap_css %}
   {% bootstrap_javascript jquery='full' %}
+  {% block extra_assets %}{% endblock extra_assets %}
+
 </head>
 
 <body>
