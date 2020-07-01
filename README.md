@@ -10,6 +10,6 @@ My first Django project--working with geospatial data
 * add tracks and ability to upload gpx
 * elevation profiles
 * public vs private visibility--ability to share a pt you own with the world (but otherwise hidden)
-* ~~routing for directions~~ 
-ability to strava compare routes API
-blog with activities by date
+* ~~routing for directions~~
+* ability to strava compare routes API
+* blog with activities by date
