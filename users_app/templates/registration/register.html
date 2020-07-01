@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "dj_map_app/base.html" %}
 
 {% block content %}
 
@@ -7,7 +7,7 @@
   {{ form.as_p }}
   <button name="submit">Register</button>
   <input type="hidden" name="next"
-  value="{% url 'dj_map_app:index' %}" />
+  value="{% url 'dj_map_app:large' %}" />
 </form>
 
 {% endblock content %}
