@@ -79,8 +79,9 @@
 
   map.on('click', function(e) {
     var container = L.DomUtil.create('div'),
-    startBtn = createButton('Start from this location', container),
-    destBtn = createButton('Go to this location', container);
+    startBtn = createButton('From here', container),
+    destBtn = createButton('To here', container);
+    saveBtn = createButton('Save', container);
 
     L.popup()
     .setContent(container)
@@ -89,14 +90,38 @@
 
     L.DomEvent.on(startBtn, 'click', function() {
         control.spliceWaypoints(0, 1, e.latlng);
-        map1.closePopup();
+        map.closePopup();
     });
 
     L.DomEvent.on(destBtn, 'click', function() {
       control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
-      map1.closePopup();
+      map.closePopup();
+        });
+
+    L.DomEvent.on(saveBtn, 'click', function() {
+      $.ajax(
+        {
+          type:"POST",
+          url: "{% url 'dj_map_app:new_point' %}",
+          data:{
+            // TODO: serialize e.latlng and request user text
+            // geom: e.latlng,
+            text: "AJAX TEST",
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+          },
+          success: function( data )
+          {
+            // $( '#like'+ id ).removeClass('btn btn-primary btn-lg');
+            // $( '#like'+ id ).addClass('btn btn-success btn-lg');
+          },
+          error: function (response) {
+            console.log(response)
+          }
+        }
+      );
+      map.closePopup();
     });
-  });
+});
 
 </script>
 
