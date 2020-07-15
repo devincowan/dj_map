@@ -110,8 +110,28 @@
         });
 
     L.DomEvent.on(deleteBtn, 'click', function() {
-      // TODO: delete the point
+      console.log(e.layer.feature);
+      $.ajax(
+        {
+          type:"POST",
+          url: "{% url 'dj_map_app:delete_point_post' %}",
+          data:{
+            feature: e.layer.feature.properties.pk,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+          },
+          success: function( data )
+          {
+            map.removeLayer(e.layer.feature);
+            alert("Point deleted");
+
+          },
+          error: function (response) {
+            console.log(response)
+          }
+        }
+      );
       map.closePopup();
+      // TODO: hide the point
         });
   });
 

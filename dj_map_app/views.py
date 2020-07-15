@@ -102,6 +102,17 @@ def new_point_post(request):
     return HttpResponse(json.dumps(geom), content_type="application/json")
 
 
+@login_required
+def delete_point_post(request):
+    """Delete single point"""
+    feature = request.POST.get('feature', None)
+    query = Point.objects.get(pk=feature)
+    query.delete()
+
+    # Find the point and delete it
+    return HttpResponse(json.dumps(feature), content_type="application/json")
+
+
 class PointList(generic.ListView):
     model = Point
     context_object_name = 'points'
