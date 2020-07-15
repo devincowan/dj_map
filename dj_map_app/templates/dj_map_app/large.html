@@ -41,13 +41,21 @@
   transportation = new L.TileLayer(url, {maxZoom: 17});
 
   var geojsonPointLayer = new L.GeoJSON.AJAX("{% url 'dj_map_app:nearby_points_data' %}", {
-    style:function(feature){
-      // add styles
-    },
+    // style: function(feature) {
+    //   return {
+    //     color: "green"
+    //   };
+    // },
+    // pointToLayer: function(feature, latlng) {
+    //   return new L.CircleMarker(latlng, {
+    //     radius: 5,
+    //     fillOpacity: 0.85
+    //   });
+    // },
 
-    onEachFeature:function(feature, layer) {
-      layer.bindPopup(feature.properties.text.toString());
-    }
+    // onEachFeature:function(feature, layer) {
+    //   layer.bindPopup(feature.properties.text.toString());
+    // }
   });
 
   var baseMaps = {
@@ -62,11 +70,14 @@
 
   L.control.layers(baseMaps, overlayMaps).addTo(map);
 
+  // Use topo by default
+  map.addLayer(topo);
+
   control = L.Routing.control({
-    // waypoints: [
-    //   L.latLng(37.937492, -107.812286),
-    //   L.latLng(37.348885, -108.585930)
-    // ]
+    // style for the routing line
+    // lineOptions: {
+    //    styles: [{color: 'white', opacity: 1, weight: 5}]
+    // }
   })
   control.addTo(map);
 
@@ -77,10 +88,37 @@
     return btn;
   }
 
+  geojsonPointLayer.on('click', function(e){
+    // TODO: remove this duplication with map.onclick
+    var container1 = L.DomUtil.create('div'),
+    startBtn = createButton('From here', container1),
+    destBtn = createButton('To here', container1),
+    deleteBtn = createButton('Delete', container1);
+
+    L.popup()
+    .setContent(container1)
+    .setLatLng(e.latlng)
+    .openOn(map);
+    L.DomEvent.on(startBtn, 'click', function() {
+        control.spliceWaypoints(0, 1, e.latlng);
+        map.closePopup();
+    });
+
+    L.DomEvent.on(destBtn, 'click', function() {
+      control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
+      map.closePopup();
+        });
+
+    L.DomEvent.on(deleteBtn, 'click', function() {
+      // TODO: delete the point
+      map.closePopup();
+        });
+  });
+
   map.on('click', function(e) {
     var container = L.DomUtil.create('div'),
     startBtn = createButton('From here', container),
-    destBtn = createButton('To here', container);
+    destBtn = createButton('To here', container),
     saveBtn = createButton('Save', container);
 
     L.popup()
@@ -99,8 +137,19 @@
         });
 
     L.DomEvent.on(saveBtn, 'click', function() {
-      mark = L.marker( e.latlng );
+      // var myIcon = L.icon({
+      //   iconUrl: 'my-icon.png',
+      //   iconSize: [38, 95],
+      //   iconAnchor: [22, 94],
+      //   popupAnchor: [-3, -76],
+      //   shadowUrl: 'my-icon-shadow.png',
+      //   shadowSize: [68, 95],
+      //   shadowAnchor: [22, 94]
+      // });
+      // mark = L.marker(e.latlng, {icon: myIcon});
+      mark = L.marker(e.latlng);
       mark.addTo(map);
+      //
       $.ajax(
         {
           type:"POST",
