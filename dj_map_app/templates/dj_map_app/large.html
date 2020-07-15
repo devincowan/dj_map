@@ -99,14 +99,16 @@
         });
 
     L.DomEvent.on(saveBtn, 'click', function() {
+      mark = L.marker( e.latlng );
+      mark.addTo(map);
       $.ajax(
         {
           type:"POST",
-          url: "{% url 'dj_map_app:new_point' %}",
+          url: "{% url 'dj_map_app:new_point_post' %}",
           data:{
-            // TODO: serialize e.latlng and request user text
-            // geom: e.latlng,
-            text: "AJAX TEST",
+            geometry: JSON.stringify(mark.toGeoJSON().geometry),
+            // TODO: pop input for text
+            text: 'AJAX TEST',
             csrfmiddlewaretoken: '{{ csrf_token }}'
           },
           success: function( data )

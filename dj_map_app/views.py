@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .models import Point
 from .forms import PointForm
 from django.core.serializers import serialize
@@ -88,6 +88,18 @@ def new_point(request):
     # Display blank/invalid form
     context = {'form': form}
     return render(request, 'dj_map_app/new_point.html', context)
+
+
+@login_required
+def new_point_post(request):
+    """Make new single point"""
+    new_point = Point()
+    new_point.text = request.POST.get('text', None)
+    geom = request.POST.get('geometry')
+    new_point.geom = request.POST.get('geometry')
+    new_point.owner = request.user
+    new_point.save()
+    return HttpResponse(json.dumps(geom), content_type="application/json")
 
 
 class PointList(generic.ListView):
